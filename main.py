@@ -11,10 +11,10 @@ stockList = [
   # {'name': '元大台灣50', 'code': '0050'},
   # {'name': '元大中型100', 'code': '0051'},
   # {'name': '富邦科技', 'code': '0052'},
-  {'name': '元大電子', 'code': '0053'},
+  # {'name': '元大電子', 'code': '0053'},
   {'name': '元大台商50', 'code': '0054'},
   {'name': '元大MSCI金融', 'code': '0055'},
-  # {'name': '元大高股息', 'code': '0056'},
+  {'name': '元大高股息', 'code': '0056'},
   # {'name': '富邦摩台', 'code': '0057'},
   # {'name': '元大寶滬深', 'code': '0061'},
   # {'name': 'BP上證50', 'code': '008201'},
@@ -140,6 +140,8 @@ class Crawer:
   def __init__(self):
     path = './chromedriver'
     self.browser = webdriver.Chrome(path)
+    self.url ="http://localhost:8080/api/stock"
+
 
   def parseToInt(self, x):
     x = x.replace(",", "")
@@ -147,14 +149,14 @@ class Crawer:
 
   def postData(self, data):
     # url ="http://localhost:8080/api/stock"
-    url ="http://167.179.80.227:8080/api/stock"
+    # url ="http://167.179.80.227:8080/api/stock"
 
-    r = requests.post(url, data=data)
+    r = requests.post(self.url, data=data)
     print("response", r.json())
   
   def parseDate(self, date):
     date = date.split('/')
-    return date[0], date[1], date[2]
+    return int(date[0]), int(date[1]), int(date[2])
 
 
   def parseData(self, tdList, name, code):
