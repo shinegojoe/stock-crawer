@@ -12,9 +12,9 @@ stockList = [
   # {'name': '元大中型100', 'code': '0051'},
   # {'name': '富邦科技', 'code': '0052'},
   # {'name': '元大電子', 'code': '0053'},
-  {'name': '元大台商50', 'code': '0054'},
-  {'name': '元大MSCI金融', 'code': '0055'},
-  {'name': '元大高股息', 'code': '0056'},
+  #{'name': '元大台商50', 'code': '0054'},
+  #{'name': '元大MSCI金融', 'code': '0055'},
+  #{'name': '元大高股息', 'code': '0056'},
   # {'name': '富邦摩台', 'code': '0057'},
   # {'name': '元大寶滬深', 'code': '0061'},
   # {'name': 'BP上證50', 'code': '008201'},
@@ -187,7 +187,13 @@ class Crawer:
     for row in rows:
       # print(row)
       tdList = row.find_elements_by_tag_name('td')
-      self.parseData(tdList, name, code)
+      try:
+        self.parseData(tdList, name, code)
+      except Exception as e:
+        print("name", name, "tdList", tdList)
+        print("err", e)
+        
+        pass
       # sleep(1)
       # date = tdList[0].text
       # print(date)
@@ -212,12 +218,7 @@ class Crawer:
         s2.select_by_value(val)
         searchBtn.click()
         sleep(5)
-        try:
-          self.getTable(name=name, code=code)
-        except Exception as e:
-          print(e)
-          pass
-        
+        self.getTable(name=name, code=code)
       sleep(2)
 
   def run(self):
