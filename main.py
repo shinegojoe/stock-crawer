@@ -12,9 +12,9 @@ stockList = [
   # {'name': '元大中型100', 'code': '0051'},
   # {'name': '富邦科技', 'code': '0052'},
   # {'name': '元大電子', 'code': '0053'},
-  #{'name': '元大台商50', 'code': '0054'},
-  #{'name': '元大MSCI金融', 'code': '0055'},
-  #{'name': '元大高股息', 'code': '0056'},
+  # {'name': '元大台商50', 'code': '0054'},
+  # {'name': '元大MSCI金融', 'code': '0055'},
+  # {'name': '元大高股息', 'code': '0056'},
   # {'name': '富邦摩台', 'code': '0057'},
   # {'name': '元大寶滬深', 'code': '0061'},
   # {'name': 'BP上證50', 'code': '008201'},
@@ -34,10 +34,10 @@ stockList = [
   # {'name': '元大滬深300反1', 'code': '00638R'},
   # {'name': '富邦深100', 'code': '00639'},
   # {'name': '期元大S&P石油', 'code': '00642U'},
-  # {'name': '富邦日本正2', 'code': '00640L'},
-  # {'name': '富邦日本反1', 'code': '00641R'},
-  # {'name': '富邦日本', 'code': '00645'},
-  # {'name': '群益深証中小', 'code': '00643'},
+  {'name': '富邦日本正2', 'code': '00640L'},
+  {'name': '富邦日本反1', 'code': '00641R'},
+  {'name': '富邦日本', 'code': '00645'},
+  {'name': '群益深証中小', 'code': '00643'},
   # {'name': '元大S&P500', 'code': '00646'},
   # {'name': '元大S&P500正2', 'code': '00647L'},
   # {'name': '元大S&P500反1', 'code': '00648R'},
@@ -140,7 +140,9 @@ class Crawer:
   def __init__(self):
     path = './chromedriver'
     self.browser = webdriver.Chrome(path)
-    self.url ="http://localhost:8080/api/stock"
+    # self.url ="http://localhost:8080/api/stock"
+    self.url ="http://167.179.80.227:8080/api/stock"
+
 
 
   def parseToInt(self, x):
@@ -218,7 +220,11 @@ class Crawer:
         s2.select_by_value(val)
         searchBtn.click()
         sleep(5)
-        self.getTable(name=name, code=code)
+        try:
+          self.getTable(name=name, code=code)
+        except Exception as e:
+          print(e)
+          pass
       sleep(2)
 
   def run(self):
